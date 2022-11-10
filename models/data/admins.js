@@ -46,7 +46,7 @@ let users=[
     }
 ]
 require("dotenv").config();
-require("../../config/database");
+require("../../config/database/database");
 const User = require("../User");
 
 

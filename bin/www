@@ -5,7 +5,6 @@
  */
 
 var app = require('../app');
-// "dev":"nodemon ./bin/www"
 var debug = require('debug')('back-my-tinerary-team-dev-mern:server');
 var http = require('http');
 
