@@ -1,3 +1,4 @@
+//aca van a ir los id de admin creados por mongo db del user de rami
 let cities = [{
     "id": "Barcelona-1",
     "name": "Barcelona",
