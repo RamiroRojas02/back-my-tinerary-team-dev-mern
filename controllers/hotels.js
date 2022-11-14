@@ -38,7 +38,7 @@ const controller = {
                 })
             }
         } catch (error) {
-            res.status(404).json({
+            res.status(400).json({
                 success: false,
                 message : error.message
 
