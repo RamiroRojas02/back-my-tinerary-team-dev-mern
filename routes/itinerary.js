@@ -1,4 +1,5 @@
 let router=require('express').Router()
-let {create}=require('../controllers/itinerary')
+let {create, update}=require('../controllers/itinerary')
 router.post('/',create)
+router.put('/:id',update)
 module.exports = router;
