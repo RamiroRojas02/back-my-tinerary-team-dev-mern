@@ -1,4 +1,5 @@
 let router=require('express').Router()
-let {update}=require('../controllers/city')
+let {update,destroy}=require('../controllers/city')
 router.put('/:id',update)
+router.delete('/:id',destroy)
 module.exports = router;
