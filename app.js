@@ -9,7 +9,9 @@ require('./config/database/database')
 const cors = require('cors')
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/user');
+var cityRouter = require('./routes/city');
+var itineraryRouter = require('./routes/itinerary');
 
 var app = express();
 
@@ -24,8 +26,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 
-app.use('/', indexRouter);
+app.use('/api', indexRouter);
 app.use('/users', usersRouter);
+app.use('/cities', cityRouter);
+app.use('/itineraries',itineraryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
