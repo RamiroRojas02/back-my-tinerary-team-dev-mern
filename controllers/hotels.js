@@ -29,15 +29,39 @@ const controller = {
             if (hotel) {
                 res.status(200).json({
                     success: true,
-                    message: "hotel modified successfully"
+                    message: "Hotel modified successfully"
                 })
             }else{
                 res.status(404).json({
                     success: false,
-                    message: `hotel with id : ${id}, doesn't exist`
+                    message: `Hotel with id : ${id}, doesn't exist`
                 })
             }
         } catch (error) {
+            res.status(400).json({
+                success: false,
+                message : error.message
+
+            })
+        }
+    },
+    destroy: async( req,res)=>{
+        let { id } =req.params
+        try{
+            let deletes= await Hotel.findOneAndDelete({_id:id})
+            if(deletes){
+                res.status(200).json({
+                    id:deletes._id,
+                    success:true,
+                    message: `The hotel with id: ${id}, was deleted`
+                })
+            }else{
+                res.status(404).json({
+                    success:false,
+                    message:`Can't found the hotel with id: ${id} `
+                })
+            }
+        } catch(error){
             res.status(400).json({
                 success: false,
                 message : error.message
