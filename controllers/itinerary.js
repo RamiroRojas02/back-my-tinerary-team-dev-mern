@@ -14,6 +14,29 @@ const controller = {
                 message:err.message
             })
         }
+    },update: async (req,res)=>{
+        let {id}=req.params        
+        try{
+           let actualizeItinerary= await Itinerary.findOneAndUpdate({_id:id},req.body,{new:true})
+           if(actualizeItinerary){
+            res.status(200).json({
+                    id:actualizeItinerary._id,
+                    success:true,
+                    message:"Itinerary modified successfully"
+                })
+           }else{
+                res.status(404).json({
+                    success:false,
+                    message:"The Itinerary that you wants to actualize doesn't exists"
+                })
+           }
+                           
+        }catch(err){
+            res.status(400).json({
+                success:false,
+                message:err.message
+            })
+        }
     }
 }
 module.exports=controller
