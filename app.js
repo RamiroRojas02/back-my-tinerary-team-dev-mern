@@ -7,12 +7,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('./config/database/database')
 const cors = require('cors')
+const errorHandler = require('./middlewares/errorHandler');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
 var cityRouter = require('./routes/city');
 var itineraryRouter = require('./routes/itinerary');
 var hotelRouter = require('./routes/hotel');
+
 
 
 var app = express();
@@ -27,6 +29,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
+// app.use(errorHandler.notFound)
+// app.use(errorHandler.internalServer)
+
+
 
 app.use('/api', indexRouter);
 app.use('/users', usersRouter);
