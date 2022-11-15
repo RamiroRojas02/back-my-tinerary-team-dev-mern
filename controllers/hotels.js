@@ -1,8 +1,43 @@
 const Hotel = require('../models/Hotel')
-const hotel = require('../models/Hotel')
+
 
 
 const controller = {
+    read: async(req,res)=>{
+        let query = {}
+        let order = {}
+
+        if (req.query.name) {
+            query = {name: req.query.name}
+            
+            
+        }
+        if (req.query.order) {
+            order = {name :req.query.order}
+        }
+        try {
+            console.log(query);
+
+            let hotels = await Hotel.find(query).sort(order)
+            // hotels = hotels.includes(query.name)
+            
+
+            if (hotels) {
+                res.status(200).json({
+                    response: hotels,
+                    success: true,
+                    message: 'Hotels found'
+                })
+            }
+        } catch (error) {
+            res.status(404).json({
+                success: false,
+                message : "hotels not found"
+
+            })
+        }
+        
+    } ,
     create:async(req, res)=>{
 
         try {
