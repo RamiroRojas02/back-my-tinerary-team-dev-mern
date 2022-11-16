@@ -35,10 +35,7 @@ app.use(cors())
 
 
 app.use('/api', indexRouter);
-app.use('/users', usersRouter);
-app.use('/cities', cityRouter);
-app.use('/itineraries',itineraryRouter);
-app.use('/hotels',hotelRouter);
+
 
 
 // catch 404 and forward to error handler
