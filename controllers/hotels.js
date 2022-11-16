@@ -9,7 +9,7 @@ const controller = {
         // let {id} = req.body.params
 
         if (req.query.name) {
-            query = {name: req.query.name}
+            query = {name: { $regex :req.query.name, $options:'i'} }
             
             
         }
@@ -41,12 +41,12 @@ const controller = {
         }
         
     },
-    one: (req,res)=>{
-        let {query} = req.query
-        console.log(query);
+    one: async (req,res)=>{
+        let {id} = req.params
+        console.log(id);
 
         try {
-            let hotel =  Hotel.find(query).populate("userId",["name","photo"])
+            let hotel =  await Hotel.find({_id: id}).populate("userId",["name","photo"])
             if (hotel) {
                 res.status(200).json({
                     response: hotel,
