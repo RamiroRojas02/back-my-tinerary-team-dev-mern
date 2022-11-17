@@ -41,12 +41,14 @@ const controller = {
         }
         
     },
+
     one: async (req,res)=>{
         let {id} = req.params
         console.log(id);
 
         try {
-            let hotel =  await Hotel.find({_id: id}).populate("userId",["name","photo"])
+            let hotel =  await Hotel.findOne({_id: id}).populate("userId",["name","photo"])
+
             if (hotel) {
                 res.status(200).json({
                     response: hotel,
