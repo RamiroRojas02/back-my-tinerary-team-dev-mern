@@ -42,11 +42,10 @@ const controller = {
         
     },
     one: (req,res)=>{
-        let {query} = req.query
-        console.log(query);
+        let {id} = req.params
 
         try {
-            let hotel =  Hotel.find(query).populate("userId",["name","photo"])
+            let hotel =  Hotel.findOne({_id : id}).populate("userId",["name","photo"])
             if (hotel) {
                 res.status(200).json({
                     response: hotel,
