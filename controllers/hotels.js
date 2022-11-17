@@ -6,6 +6,7 @@ const controller = {
     read: async(req,res)=>{
         let query = {}
         let order = {}
+        // let {id} = req.body.params
 
         if (req.query.name) {
             query = {name: req.query.name}
@@ -13,12 +14,14 @@ const controller = {
             
         }
         if (req.query.order) {
-            order = {name :req.query.order}
+            order = {name : req.query.order}
         }
         try {
             console.log(query);
 
-            let hotels = await Hotel.find(query).sort(order)
+            let hotels = await Hotel.find(query)
+            .sort(order)
+            
             // hotels = hotels.includes(query.name)
             
 
@@ -37,11 +40,32 @@ const controller = {
             })
         }
         
+    },
+    one: (req,res)=>{
+        let {query} = req.query
+        console.log(query);
+
+        try {
+            let hotel =  Hotel.find(query).populate("userId",["name","photo"])
+            if (hotel) {
+                res.status(200).json({
+                    response: hotel,
+                    success: true,
+                    message: 'hotel found'
+                })
+            }
+        } catch (error) {
+            res.status(400).json({
+                success: false,
+                message : error.message
+
+            })
+        }
     } ,
     create:async(req, res)=>{
 
         try {
-            let newHotel = hotel.create(req.body)
+            let newHotel = Hotel.create(req.body)
             res.status(200).json({
                 id: (await newHotel)._id,
                 success: true,

@@ -2,6 +2,31 @@ const Show= require('../models/Show')
 
 
 const controller = {
+    read: async(req,res)=>{
+        let {hotelId} = req.query
+        console.log(hotelId);
+        try {
+            let shows = await Show.find({ hotelId : hotelId}).populate("userId",["name","age","photo","lastName"]).populate("hotelId")
+
+            if (shows) {
+                res.status(200).json({
+                    response: shows,
+                    success: true,
+                    message: "Shows founded"
+                })
+            }else{
+                res.status(404).json({
+                    success:false,
+                    message: `Show with id : ${hotelId}, doesn't exist`
+                })  
+            }
+        } catch (error) {
+            res.status(400).json({
+                success:false,
+                message:error.message
+            })
+        }
+    },
     create: async(req,res)=>{
         try {
             let newShow = await  Show.create(req.body)
@@ -16,7 +41,9 @@ const controller = {
                 message:error.message
             })
         }
-    },
+    }
+    
+    ,
     update: async(req,res)=>{
         let {id} = req.params
         try {
