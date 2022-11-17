@@ -6,7 +6,7 @@ const controller = {
         let {hotelId} = req.query
         console.log(hotelId);
         try {
-            let shows = await Show.find({ hotelId : hotelId}).populate("userId",["name","age","photo","lastName"])
+            let shows = await Show.find({ hotelId : hotelId}).populate("userId",["name","age","photo","lastName"]).populate("hotelId")
 
             if (shows) {
                 res.status(200).json({

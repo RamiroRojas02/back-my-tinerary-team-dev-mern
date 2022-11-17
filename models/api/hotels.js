@@ -109,6 +109,7 @@ hotels.forEach( e =>{
       name : e.name,
       photo : e.photo,
       capacity : e.capacity,
+      description: e.description,
       cityId : e.citiId,
       userId: e.userId
    })
