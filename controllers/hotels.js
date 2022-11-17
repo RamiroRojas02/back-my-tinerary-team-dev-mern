@@ -9,7 +9,7 @@ const controller = {
         // let {id} = req.body.params
 
         if (req.query.name) {
-            query = {name: req.query.name}
+            query = {name: { $regex :req.query.name, $options:'i'} }
             
             
         }
@@ -41,11 +41,14 @@ const controller = {
         }
         
     },
-    one: (req,res)=>{
+
+    one: async (req,res)=>{
         let {id} = req.params
+        console.log(id);
 
         try {
-            let hotel =  Hotel.findOne({_id : id}).populate("userId",["name","photo"])
+            let hotel =  await Hotel.findOne({_id: id}).populate("userId",["name","photo"])
+
             if (hotel) {
                 res.status(200).json({
                     response: hotel,
