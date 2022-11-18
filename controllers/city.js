@@ -1,7 +1,43 @@
 const City = require ('../models/City')
 const controller = {
-        create: async (req,res)=>{
-            try{
+    read: async(req,res)=>{
+        let query = {}
+        if (req.query.continent) {
+            query = {continent : req.query.continent}
+        }
+        if (req.query.name) {
+            query = {
+                ...query,
+                name: { $regex :req.query.name, $options:'i'} }   
+        }
+
+        try {
+            console.log(query);
+
+            let cities = await City.find(query)
+            if (cities) {
+                res.status(200).json({
+                    response: cities,
+                    success: true,
+                    message: 'Cities found'
+                })
+            }else{
+                res.status(400).json({
+                    success:false,
+                    message:"Cities not found"
+                })
+            }
+        } catch (error) {
+            res.status(404).json({
+                success: false,
+                message :error.message
+
+            })
+        }
+        
+    },
+    create: async (req,res)=>{
+               try{
                let new_city= await City.create(req.body)
                     res.status(201).json({
                         id:new_city._id,
