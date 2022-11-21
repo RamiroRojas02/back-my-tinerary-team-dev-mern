@@ -1,5 +1,30 @@
 const Itinerary = require ('../models/Itinerary')
 const controller = {
+    read: async(req,res)=>{
+        let {cityId} = req.query
+        console.log(cityId);
+        try {
+            let itineraries = await Itinerary.find({ cityId : cityId}).populate("userId",["name","photo"]).populate("cityId")
+            console.log(itineraries)
+            if (itineraries) {
+                res.status(200).json({
+                    response: itineraries,
+                    success: true,
+                    message: "Itineraries founded"
+                })
+            }else{
+                res.status(404).json({
+                    success:false,
+                    message: `Itineraries with id : ${cityId}, doesn't exist`
+                })  
+            }
+        } catch (error) {
+            res.status(400).json({
+                success:false,
+                message:error.message
+            })
+        }
+    },
     create: async (req,res)=>{
         try{
            let new_itinerary= await Itinerary.create(req.body)

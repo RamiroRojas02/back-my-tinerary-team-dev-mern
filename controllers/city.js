@@ -1,19 +1,51 @@
 const City = require ('../models/City')
 const controller = {
+    readDetails: async(req,res)=>{
+        let {id}=req.params
+        try {
+            let citiesDetails = await City.findOne({_id:id})
+            if (citiesDetails) {
+                res.status(200).json({
+                    response:{
+                        name: citiesDetails.name ,
+                        photo: citiesDetails.photo,
+                        userId: citiesDetails.userId
+                    }, 
+                    success: true,
+                    message: 'City id found'
+                })
+            }else{
+                res.status(400).json({
+                    success:false,
+                    message:"City id didn't found"
+                })
+            }
+        } catch (error) {
+            res.status(404).json({
+                success: false,
+                message :error.message
+            })
+        }
+        
+    },
     read: async(req,res)=>{
         let query = {}
-        if (req.query.continent) {
-            query = {continent : req.query.continent}
+        try {
+            console.log(query);
+             if (req.query.continent) {
+
+            query = {
+                /* ...query, */
+                continent :  req.query.continent 
+            }
+            console.log(req.query.continent)
         }
         if (req.query.name) {
             query = {
                 ...query,
                 name: { $regex :req.query.name, $options:'i'} }   
         }
-
-        try {
-            console.log(query);
-
+  
             let cities = await City.find(query)
             if (cities) {
                 res.status(200).json({
