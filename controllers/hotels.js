@@ -20,7 +20,7 @@ const controller = {
             console.log(query);
 
             let hotels = await Hotel.find(query)
-            .sort(order)
+            .sort(order).populate("cityId").populate("userId")
             
             // hotels = hotels.includes(query.name)
             
@@ -29,13 +29,13 @@ const controller = {
                 res.status(200).json({
                     response: hotels,
                     success: true,
-                    message: 'Hotels found'
+                    messagge: 'Hotels found'
                 })
             }
         } catch (error) {
             res.status(404).json({
                 success: false,
-                message : "hotels not found"
+                messagge : "hotels not found"
 
             })
         }
@@ -59,7 +59,7 @@ const controller = {
         } catch (error) {
             res.status(400).json({
                 success: false,
-                message : error.message
+                messagge : error.message
 
             })
         }
@@ -71,12 +71,12 @@ const controller = {
             res.status(200).json({
                 id: (await newHotel)._id,
                 success: true,
-                message : "Hotel create successfully"
+                messagge : "Hotel create successfully"
             })
         } catch (error) {
             res.status(400).json({
                 success: false,
-                message : error.message
+                messagge : error.message
 
             })
             
@@ -90,18 +90,18 @@ const controller = {
             if (hotel) {
                 res.status(200).json({
                     success: true,
-                    message: "Hotel modified successfully"
+                    messagge: "Hotel modified successfully"
                 })
             }else{
                 res.status(404).json({
                     success: false,
-                    message: `Hotel with id : ${id}, doesn't exist`
+                    messagge: `Hotel with id : ${id}, doesn't exist`
                 })
             }
         } catch (error) {
             res.status(400).json({
                 success: false,
-                message : error.message
+                messagge : error.message
 
             })
         }
@@ -114,18 +114,18 @@ const controller = {
                 res.status(200).json({
                     id:deletes._id,
                     success:true,
-                    message: `The hotel with id: ${id}, was deleted`
+                    messagge: `The hotel with id: ${id}, was deleted`
                 })
             }else{
                 res.status(404).json({
                     success:false,
-                    message:`Can't found the hotel with id: ${id} `
+                    messagge:`Can't found the hotel with id: ${id} `
                 })
             }
         } catch(error){
             res.status(400).json({
                 success: false,
-                message : error.message
+                messagge : error.message
 
             })
         }
