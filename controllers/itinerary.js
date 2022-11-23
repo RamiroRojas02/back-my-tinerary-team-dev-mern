@@ -4,7 +4,7 @@ const controller = {
         let {cityId} = req.query
         console.log(cityId);
         try {
-            let itineraries = await Itinerary.find({ cityId : cityId}).populate("userId",["name","photo"]).populate("cityId")
+            let itineraries = await Itinerary.find({ cityId : cityId}).populate("userId",["name","photo"]).populate("cityId")//metodo de mongoose para relacionar entre colecciones  argumento1:nombre de la coleccion y parametro 2 : propiedades que existen en esa coleccion osea , el populate extrae datos de una coleccion distinta 
             console.log(itineraries)
             if (itineraries) {
                 res.status(200).json({

@@ -46,7 +46,10 @@ const controller = {
                 name: { $regex :req.query.name, $options:'i'} }   
         }
   
-            let cities = await City.find(query)
+            let cities = await City.find(query).populate({
+                path: "userId",
+                select: "role -_id",
+              });
             if (cities) {
                 res.status(200).json({
                     response: cities,
@@ -74,7 +77,8 @@ const controller = {
                     res.status(201).json({
                         id:new_city._id,
                         success:true,
-                        message:"city created successfully"
+                        message:"city created successfully",
+                        body: new_city
                     })           
             }catch(err){
                 res.status(400).json({
