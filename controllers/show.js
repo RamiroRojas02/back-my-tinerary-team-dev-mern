@@ -1,12 +1,21 @@
+
 const Show= require('../models/Show')
 
 
 const controller = {
     read: async(req,res)=>{
-        let {hotelId} = req.query
-        console.log(hotelId);
+        
+        let query = {}
+        if (req.query.hotelId) {
+            query = {hotelId: req.query.hotelId}
+        }
+        if (req.query.userId) {
+            query = {
+                ...query,
+                UserId: req.query.userId}
+        }
         try {
-            let shows = await Show.find({ hotelId : hotelId}).populate("userId",["name","age","photo","lastName"]).populate("hotelId")
+            let shows = await Show.find(query).populate("userId",["name","age","photo","lastName"]).populate("hotelId")
 
             if (shows) {
                 res.status(200).json({
@@ -50,6 +59,7 @@ const controller = {
             let show = await Show.findOneAndUpdate({_id: id},req.body,{new :true})
             if (show) {
                 res.status(200).json({
+                    showUpdate: show,
                     id : show._id,
                     success: true,
                     message: "Show modified successfully"
