@@ -13,6 +13,10 @@ const controller = {
             
             
         }
+        if (req.query.userId) {
+            query = {...query,
+            userId: req.query.userId    }
+        }
         if (req.query.order) {
             order = {name : req.query.order}
         }
@@ -89,6 +93,7 @@ const controller = {
 
             if (hotel) {
                 res.status(200).json({
+                    hotelUpdate: hotel,
                     success: true,
                     messagge: "Hotel modified successfully"
                 })
