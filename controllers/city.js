@@ -45,11 +45,15 @@ const controller = {
                 ...query,
                 name: { $regex :req.query.name, $options:'i'} }   
         }
+        if (req.query.userId) {
+            query = {
+                ...query,
+                userId: req.query.userId
+             }   
+        }
+
   
-            let cities = await City.find(query).populate({
-                path: "userId",
-                select: "role -_id",
-              });
+            let cities = await City.find(query)
             if (cities) {
                 res.status(200).json({
                     response: cities,
@@ -96,6 +100,7 @@ const controller = {
            if(actualize){
             res.status(200).json({
                     id:actualize._id,
+                    citySync:actualize,
                     success:true,
                     message:"City modified successfully"
                 })
