@@ -1,5 +1,41 @@
 const Itinerary = require ('../models/Itinerary')
 const controller = {
+    read: async(req,res)=>{
+        let query = {}        
+        try {
+            if (req.query.cityId) {
+                query = {
+                    cityId: req.query.cityId
+                 }   
+            }
+            if (req.query.userId) {
+                query = {
+                    ...query,
+                    userId: req.query.userId
+                 }   
+            }
+            let itineraries = await Itinerary.find(query).populate("userId",["name","photo"]).populate("cityId")
+            //metodo de mongoose para relacionar entre colecciones  argumento1:nombre de la coleccion y parametro 2 : propiedades que existen en esa coleccion osea , el populate extrae datos de una coleccion distinta 
+            console.log(itineraries)
+            if (itineraries) {
+                res.status(200).json({
+                    response: itineraries,
+                    success: true,
+                    message: "Itineraries founded"
+                })
+            }else{
+                res.status(404).json({
+                    success:false,
+                    message: `Itineraries with id : ${cityId}, doesn't exist`
+                })  
+            }
+        } catch (error) {
+            res.status(400).json({
+                success:false,
+                message:error.message
+            })
+        }
+    },
     create: async (req,res)=>{
         try{
            let new_itinerary= await Itinerary.create(req.body)
@@ -21,6 +57,7 @@ const controller = {
            if(actualizeItinerary){
             res.status(200).json({
                     id:actualizeItinerary._id,
+                    itinerarySync:actualizeItinerary,
                     success:true,
                     message:"Itinerary modified successfully"
                 })
@@ -37,7 +74,8 @@ const controller = {
                 message:err.message
             })
         }
-    },    destroy:async (req,res)=>{
+    },
+        destroy:async (req,res)=>{
         let {id}=req.params
         try{
             let disappear= await Itinerary.findOneAndDelete({_id:id})
