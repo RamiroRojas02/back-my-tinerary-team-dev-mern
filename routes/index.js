@@ -7,7 +7,7 @@ let show = require('./show')
 
 router.use('/itineraries',itinerary)
 router.use('/cities',city)
-router.use('/users',user)
+router.use('/auth',user)
 router.use('/hotels', hotel)
 router.use('/shows',show)
 module.exports = router
