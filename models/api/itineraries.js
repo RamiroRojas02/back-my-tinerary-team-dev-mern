@@ -1,6 +1,6 @@
 let itineraries = [
    {
-    citiId: "636e617a4a396074d089c553",
+    cityId: "636e617a4a396074d089c553",
     name: "Colosseum, Roman Forum, Palatine Hill Entry Tickets",
     photo: [
       "https://cdn.getyourguide.com/img/tour/5a002bd329aea.jpeg/145.jpg",
@@ -14,7 +14,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c909",
   },
   {
-    citiId: "636e617a4a396074d089c553",
+    cityId: "636e617a4a396074d089c553",
     name: "Museums & Sistine Chapel Entrance Ticket",
     photo: [
       "https://cdn.getyourguide.com/img/tour/5ca71f346248b.jpeg/145.jpg",
@@ -28,7 +28,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c909",
   },
   {
-    citiId: "636e617a4a396074d089c556",
+    cityId: "636e617a4a396074d089c556",
     name: "Main Sights and Hidden Spots Guided Walking Tour",
     photo: [
       "https://cdn.getyourguide.com/img/tour/5e731d35e72fa.jpeg/145.jpg",
@@ -42,7 +42,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c909",
   },
   {
-    citiId: "636e617a4a396074d089c556",
+    cityId: "636e617a4a396074d089c556",
     name: "Shinsekai Food Tour",
     photo: [
       "https://cdn.getyourguide.com/img/tour/5da92b5c27d11.jpeg/145.jpg",
@@ -56,7 +56,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c909",
   },
   {
-    citiId: "636e617a4a396074d089c559",
+    cityId: "636e617a4a396074d089c559",
     name: " Full-Day Group Tour of Machu Picchu",
     photo: [
       "https://cdn.getyourguide.com/img/tour/6181606a9694d.jpeg/145.jpg",
@@ -70,7 +70,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c90c",
   },
   {
-    citiId: "636e617a4a396074d089c559",
+    cityId: "636e617a4a396074d089c559",
     name: "Rainbow Mountain Tour with Meals",
     photo: [
       "https://cdn.getyourguide.com/img/tour/5e18ddb4b0cf1.jpeg/145.jpg",
@@ -84,7 +84,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c90c",
   },
   {
-    citiId: "636e617a4a396074d089c550",
+    cityId: "636e617a4a396074d089c550",
     name: "São Paulo City: 5-Hour Private Tour",
     photo: [
       "https://cdn.getyourguide.com/img/tour/5d938619c3fe6.jpeg/145.jpg",
@@ -98,7 +98,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c90b",
   },
   {
-    citiId: "636e617a4a396074d089c550",
+    cityId: "636e617a4a396074d089c550",
     name: "Aparecida Cathedral Tour",
     photo: [
       "https://cdn.getyourguide.com/img/tour/5cec34fb9bb9e.jpeg/98.jpg",
@@ -112,7 +112,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c90b",
   },
   {
-    citiId: "636e617a4a396074d089c54e",
+    cityId: "636e617a4a396074d089c54e",
     name: "Camp Nou and FC Barcelona Museum",
     photo: [
       "https://cdn.getyourguide.com/img/tour/1e6cc83e121168e8.jpeg/145.jpg",
@@ -126,7 +126,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c909",
   },
   {
-    citiId: "636e617a4a396074d089c54e",
+    cityId: "636e617a4a396074d089c54e",
     name: "Wine, Cava, Tapas & Vineyards 4WD Experience",
     photo: [
       "https://cdn.getyourguide.com/img/tour/592d3e93e2071.jpeg/145.jpg",
@@ -140,7 +140,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c909",
   },
   {
-    citiId: "636e617a4a396074d089c557",
+    cityId: "636e617a4a396074d089c557",
     name: "Doge's Palace & St. Mark's Basilica with Terrace Access Tour",
     photo: [
       "https://cdn.getyourguide.com/img/tour/5dbbfd3a1ecfb.jpeg/145.jpg",
@@ -154,7 +154,7 @@ let itineraries = [
     userId: "636d5aca61aa2e5d1c58c909",
   },
   {
-    citiId: "636e617a4a396074d089c557",
+    cityId: "636e617a4a396074d089c557",
     name: "Murano, Burano, Torcello Island & Glass Factory Tour",
     photo: [
       "https://cdn.getyourguide.com/img/tour/62330b8218858.jpeg/145.jpg",
@@ -181,7 +181,7 @@ itineraries.forEach( e =>{
       description : e.description,
       price: e.price,
       duration : e.duration,
-      citiId : e.citiId,
+      cityId : e.cityId,
       userId: e.userId,
    })
 })

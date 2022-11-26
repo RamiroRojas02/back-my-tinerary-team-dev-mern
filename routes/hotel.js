@@ -1,10 +1,17 @@
 let router=require('express').Router()
+let validator = require('../middlewares/validator')
+let schema = require('../config/schemas/hotels')
+let schemaEditHotel = require('../config/schemas/hotelEdit')
+
 let {create, update, destroy, read,one}=require('../controllers/hotels')
-router.get('/',read)
-router.post('/',create)
-router.patch('/:id',update)
-router.delete('/:id',destroy)
-router.get('/:id',one)
+router.route('/')
+    .get(read)
+    .post(validator(schema),create)
+
+router.route('/:id')
+    .patch(validator(schemaEditHotel),update)
+    .delete(destroy)
+    .get(one)
 
 
 module.exports = router;
