@@ -24,6 +24,7 @@ passport.use(
                         email : user.email,
                         role: user.role,
                         id: user._id,
+                        logged: user.logged
                     }
                     return done(null, user)
                 }else{
