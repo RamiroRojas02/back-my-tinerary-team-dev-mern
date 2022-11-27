@@ -9,4 +9,4 @@ async function accountExists(req, res, next) {
     return next()
 }
 
-module.exports =  accountExists 
+module.exports =  {accountExists} 
