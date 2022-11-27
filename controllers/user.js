@@ -31,7 +31,7 @@ const controller = {
             )
             if (user) {
                 //console.log(user)
-                return res.redirect('http://localhost:8000')
+                return res.redirect('http://localhost:3000/')
                 //deberia redigir a una pagina de bienvenida o home
                 //puede retornar un json y manejar la redireccion en el front
             }
