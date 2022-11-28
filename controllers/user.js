@@ -40,5 +40,6 @@ const controller = {
             next(error) //respuesta del catch
         }
     },
+    
 }
 module.exports=controller
