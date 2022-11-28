@@ -63,6 +63,15 @@ describe("GET /api/cities", function () {
       })
     });
   });
+  describe("DELETE /api/cities", function () {
+    it("Has to be a 201 when a city is deleted", function (done) {
+      const body = {
+        cityId: "63744ba6b943babf4b70d5dd",
+      };
+  
+      request(app).delete("api/cities/:63744ba6b943babf4b70d5dd").expect(201, done());
+    });
+  });
   describe('POST a new city', function(){
 
     it('Should be a string in the name field', function(done){
