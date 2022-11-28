@@ -25,8 +25,6 @@ const controller = {
         let {password} = req.body
         let {user} = req
 
-        console.log(user);
-        console.log(password);
         
         try {
             const verifyPassword = bcryptjs.compareSync(password, user.password)
@@ -70,6 +68,49 @@ const controller = {
         } catch (error) {
             next(error) 
         }
+    },
+    getMyProfile: async(req,res,next)=>{
+        let {id} = req.params
+        console.log(id);
+        try {
+            let user = await User.find({_id:id})
+
+            if (user) {
+                res.status(200).json({
+                    myUser: user,
+                    success:true,
+
+                })
+            }else{
+                res.status(404).json({
+                    success:false,
+                    message:`user with id ${id} doesn't exist`
+                })
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+    updateMyProfile: async(req,res,next)=>{
+        let {id} = req.params
+        try {
+            let user = await User.findOneAndUpdate({_id: id},req.body, {new: true})
+        if (user) {
+            res.status(200).json({
+                newUser: user,
+                success:true
+            })
+        }else{
+            res.status(404).json({
+                success:false,
+                message: `user with id ${id} doesn't exist`
+            })
+        }
+        } catch (error) {
+            next(error)
+        }
+
+
     }
 }
 module.exports=controller
