@@ -34,8 +34,6 @@ function mustSignInResponse(req,res) {
 }
 
 function invalidCredentialsResponse(req,res) {
-    console.log("entre");
-    console.log(req.body);
     return res.status(401).json({
         success: false,
         message: 'email or password incorrect'
