@@ -37,6 +37,7 @@ const controller = {
         }
     },
     create: async(req,res)=>{
+        console.log(req.body);
         try {
             let newShow = await  Show.create(req.body)
             res.status(200).json({
