@@ -2,7 +2,7 @@ const app = require("../app");
 const chai = require("chai");
 const assert = chai.assert;
 const request = require("supertest");
-const { describe } = require("../config/schemas/userSignIn");
+// const { describe } = require("../config/schemas/userSignIn");
 
 describe("Get api/hotels/", function () {
   it("Has be a 404 error when the filt not match", function (done) {
