@@ -12,7 +12,8 @@ const controller = {
         if (req.query.userId) {
             query = {
                 ...query,
-                UserId: req.query.userId}
+                userId: req.query.userId}
+                console.log(query);
         }
         try {
             let shows = await Show.find(query).populate("userId",["name","age","photo","lastName"]).populate("hotelId")
@@ -37,6 +38,7 @@ const controller = {
         }
     },
     create: async(req,res)=>{
+        console.log(req.body);
         try {
             let newShow = await  Show.create(req.body)
             res.status(200).json({

@@ -2,6 +2,7 @@ const app = require("../app");
 const chai = require("chai");
 const assert = chai.assert;
 const request = require("supertest");
+// const { describe } = require("../config/schemas/userSignIn");
 
 describe("Get api/hotels/", function () {
   it("Has be a 404 error when the filt not match", function (done) {
@@ -72,6 +73,7 @@ describe("GET /api/cities", function () {
       request(app).delete("api/cities/:63744ba6b943babf4b70d5dd").expect(201, done());
     });
   });
+  
   describe('POST a new city', function(){
 
     it('Should be a string in the name field', function(done){
@@ -119,4 +121,11 @@ const cityTest = {
           done()
       })
 })
-}) 
+}),
+describe(' Destroy a Show',function () {
+  it("Has to be a 201 when a Show is deleted", function (done) {
+    let show = "638470e48a8e649bec1ec160"
+
+    request(app).delete("api/shows/638470e48a8e649bec1ec160").expect(201, done());
+  });
+});
