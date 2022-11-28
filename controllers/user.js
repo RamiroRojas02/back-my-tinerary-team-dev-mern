@@ -133,7 +133,8 @@ const controller = {
         }
         } catch (error) {
             next(error)
-        },
+        }
+    },
 
 
 
