@@ -42,9 +42,11 @@ const controller = {
                 res.status(201).json({
                     userId:new_itinerary._id,
                     success:true,
-                    message:"itinerary created successfully"
+                    message:"itinerary created successfully",
+                    body: new_itinerary
                 })           
         }catch(err){
+            console.log(err.message)
             res.status(400).json({
                 success:false,
                 message:err.message
