@@ -2,7 +2,7 @@ const User = require ('../models/User')
 const bcryptjs = require('bcryptjs')//de esta libreria vamos a utilizar el metodo hashSync para encriptar la contraseña
 const crypto = require('crypto')//de este modulo, vamos a requerir el metodo random bytes
 const accountVerificationEmail = require('./accountVerificationEmail')
-const { userSignedUpResponse } = require('../config/responses')
+const { userSignedUpResponse,userSignedOutResponse } = require('../config/responses')
 const {invalidCredentialsResponse, } = require('../config/responses')
 const jwt = require('jsonwebtoken')
 
@@ -94,7 +94,18 @@ const controller = {
         } catch (error) {
             next(error) 
         }
-    }
+    },
+    leave: async (req, res, next) => {
+        const { email} = req.user;
+        
+        try {
+          let user1 = await User.findOneAndUpdate({email},{ logged: false },{ new: true });
+          console.log(user1);
+          return userSignedOutResponse(req, res);
+        } catch (error) {
+          next(error);
+        }
+      }
     }
 
 module.exports=controller
