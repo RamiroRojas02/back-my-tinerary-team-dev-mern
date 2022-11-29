@@ -41,6 +41,7 @@ function getTransport(client){
 //debe tener un link hacia una ruta del controlador de usuario 
 //que cambia la propiedad verificado de false a true
 function getEmailBody({email,host,code}){
+    console.log(host);
     return `
     <h1>Hola!, ${email}</h1>
     <p>¡Click on<a href="${host}auth/verify/${code}">

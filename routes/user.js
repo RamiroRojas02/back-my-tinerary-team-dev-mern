@@ -1,8 +1,8 @@
 let router=require('express').Router()
 
-let {create,signin,verify, register,signinWithToken, getMyProfile,updateMyProfile,leave }=require('../controllers/user')
+let {signin,verify, register,signinWithToken, getMyProfile,updateMyProfile,leave }=require('../controllers/user')
 
-const {accountExists}  = require('../middlewares/accountExistsSignIn')
+const {accountExists}  = require('../middlewares/accountExistsSignIn')//cambiar
 const {accountHasBeenVerified} = require('../middlewares/accountHasBeenVerified')
 const passport = require('../config/passport')
 const mustSignIn = require('../middlewares/mustSignIn')
@@ -15,8 +15,8 @@ router.post('/SignUp',validator(schema),accountExists1,register)
 router.get('/verify/:code',verify)
 router.post('/signin',validator(schemaSignIn),accountExists,accountHasBeenVerified,signin)
 router.post('/token',passport.authenticate('jwt',{session:false}),mustSignIn,signinWithToken)
-router.get('/me/:id',getMyProfile)
-router.patch('/me/:id',updateMyProfile)
+router.get('/me/:id',passport.authenticate('jwt',{session:false}),getMyProfile)
+router.patch('/me/:id',passport.authenticate('jwt',{session:false}),updateMyProfile)
 router.put('/sign-out',passport.authenticate('jwt',{session:false}),leave)
 
 module.exports = router;
