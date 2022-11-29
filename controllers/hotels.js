@@ -112,6 +112,7 @@ const controller = {
         }
     },
     destroy: async( req,res)=>{
+        console.log(req.params);
         let { id } =req.params
         try{
             let deletes= await Hotel.findOneAndDelete({_id:id})

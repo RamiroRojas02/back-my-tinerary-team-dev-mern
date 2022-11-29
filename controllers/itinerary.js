@@ -13,10 +13,11 @@ const controller = {
                     ...query,
                     userId: req.query.userId
                  }   
+                 console.log(query);
             }
-            let itineraries = await Itinerary.find(query).populate("userId",["name","photo"]).populate("cityId")
+            let itineraries = await Itinerary.find(query)//.populate("userId",["name","photo"]).populate("cityId")
             //metodo de mongoose para relacionar entre colecciones  argumento1:nombre de la coleccion y parametro 2 : propiedades que existen en esa coleccion osea , el populate extrae datos de una coleccion distinta 
-            console.log(itineraries)
+            // console.log(itineraries)
             if (itineraries) {
                 res.status(200).json({
                     response: itineraries,
@@ -42,9 +43,11 @@ const controller = {
                 res.status(201).json({
                     userId:new_itinerary._id,
                     success:true,
-                    message:"itinerary created successfully"
+                    message:"itinerary created successfully",
+                    body: new_itinerary
                 })           
         }catch(err){
+            console.log(err.message)
             res.status(400).json({
                 success:false,
                 message:err.message
