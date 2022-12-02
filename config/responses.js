@@ -46,6 +46,22 @@ function verifyResponse(req,res) {
         message: 'Please, verify your email account and try again'
     })
 }
+
+function verifyUser(req, res) {
+    return res.status(401).json({
+        success: false,
+        message: "No reactions of you on here",
+    });
+}
+
+function notFound(req, res) {
+    return res.status(404).json({
+        success: false,
+        message: "Couldn't find the itinerary",
+    });
+}
+
+
 function invalidUser(req,res) {
     console.log("buenas");
     return res.status(400).json({
@@ -53,6 +69,7 @@ function invalidUser(req,res) {
         message:'This comment is not yours'
     })
 }
+
 module.exports = {
     userSignedUpResponse,
     userExistsResponse,
@@ -61,5 +78,8 @@ module.exports = {
     mustSignInResponse,
     invalidCredentialsResponse,
     verifyResponse,
+    verifyUser,
+    notFound,
     invalidUser
+
 }
