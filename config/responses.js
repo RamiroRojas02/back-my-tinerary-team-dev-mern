@@ -46,13 +46,8 @@ function verifyResponse(req,res) {
         message: 'Please, verify your email account and try again'
     })
 }
-function invalidUser(req,res) {
-    console.log("buenas");
-    return res.status(400).json({
-        success:false,
-        message:'This comment is not yours'
-    })
-}function verifyUser(req, res) {
+
+function verifyUser(req, res) {
     return res.status(401).json({
         success: false,
         message: "No reactions of you on here",
@@ -66,6 +61,15 @@ function notFound(req, res) {
     });
 }
 
+
+function invalidUser(req,res) {
+    console.log("buenas");
+    return res.status(400).json({
+        success:false,
+        message:'This comment is not yours'
+    })
+}
+
 module.exports = {
     userSignedUpResponse,
     userExistsResponse,
@@ -74,7 +78,8 @@ module.exports = {
     mustSignInResponse,
     invalidCredentialsResponse,
     verifyResponse,
-    invalidUser,
     verifyUser,
-    notFound
+    notFound,
+    invalidUser
+
 }
