@@ -68,9 +68,19 @@ const controller = {
                 itineraryId: req.query.itineraryId
              }   
         }
+        if (req.query.userId) {
+            query = {
+                ...query,
+                userId: req.query.userId
+             }   
+             console.log(query)
+        }
         try{
             let readReactions = await Reaction.find(query)
+                .populate({ path: 'userId', select: 'name lastName photo' })             
+                .populate({ path: 'itineraryId', select: 'name photo _id' })
             if (readReactions){
+                console.log(readReactions)
             res.status(200).json({
                 reaction:readReactions,
                 success: true,
@@ -85,6 +95,30 @@ const controller = {
         }catch(err){
             console.log(err.message)
         }
-    }
+    },
+    destroy: async (req, res) => {
+        let { id } = req.params
+
+        try {
+            let reaction = await Reaction.findOneAndUpdate({ _id: id }, { $pull: { userId: req.user.id } }, { new: true })
+            if (reaction) {
+                res.status(200).json({
+                    data: reaction,
+                    message: "reaction deleted",
+                    success: true,
+                })
+            } else {
+                res.status(404).json({
+                    message: "reactions not found",
+                    success: false,
+                })
+            }
+        } catch (error) {
+            res.status(400).json({
+                message: error.message,
+                success: false
+            })
+        }
+      }
 }   
 module.exports=controller

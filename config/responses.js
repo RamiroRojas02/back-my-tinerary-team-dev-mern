@@ -46,6 +46,19 @@ function verifyResponse(req,res) {
         message: 'Please, verify your email account and try again'
     })
 }
+function verifyUser(req, res) {
+    return res.status(401).json({
+        success: false,
+        message: "No reactions of you on here",
+    });
+}
+
+function notFound(req, res) {
+    return res.status(404).json({
+        success: false,
+        message: "Couldn't find the itinerary",
+    });
+}
 
 module.exports = {
     userSignedUpResponse,
@@ -54,5 +67,7 @@ module.exports = {
     userSignedOutResponse,
     mustSignInResponse,
     invalidCredentialsResponse,
-    verifyResponse
+    verifyResponse,
+    verifyUser,
+    notFound
 }
