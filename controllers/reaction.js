@@ -18,41 +18,37 @@ const controller = {
         }
     },
     edit: async(req,res)=>{
-        let query = {}
-       
-        if (req.query.name) {
-            query = {
-                ...query,
-                name: { $regex :req.query.name, $options:'i'} 
-            }   
-        }
-        if (req.query.itineraryId) {
-            query = {
-                ...query,
-                itineraryId: req.query.itineraryId
-             }   
-        }
         try{
+            let queryName = req.query.name.toLowerCase()
+
+            let query = {name: queryName, itineraryId: req.query.itineraryId}
+
             let postReaction = await Reaction.findOne(query)
             if (postReaction) {
                 if(postReaction.userId.includes(req.user.id)){
-                    const editReaction = await Reaction.findOneAndUpdate({_id: postReaction._id},{$pull:{userId:req.user.id}},{new:true})
-                    res.status(200).json({
+
+                    console.log(req.user.id)
+
+                    const editReaction = await Reaction.findOneAndUpdate(
+                        {name: queryName, itineraryId: req.query.itineraryId},{$pull:{userId:req.user.id}},{new:true})
+                        res.status(200).json({
                         reaction:editReaction,
                         success: true,
                         message: 'Reaction user id removed'
                 })
                 }else{
-                    const editReaction = await Reaction.findOneAndUpdate({_id: postReaction._id},{$push:{userId:req.user.id}},{new:true})
-                    res.status(200).json({
-                        reaction:editReaction,
-                        success: true,
-                        message: 'Reaction user id added'
+                    const editReaction = await Reaction.findOneAndUpdate(
+                         {name: queryName, itineraryId: req.query.itineraryId},{$push:{userId:req.user.id}},{new:true})
+                         res.status(200).json({
+                         reaction:editReaction,
+                         success: true,
+                         message: 'Reaction user id added'
                 })
                 }
+                
             }else{
 
-                res.status(404).json({
+                    res.status(404).json({
                     success:false,
                     message:"Reaction not found"
                 })
