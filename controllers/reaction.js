@@ -19,18 +19,32 @@ const controller = {
     },
     edit: async(req,res)=>{
         try{
-            let queryName = req.query.name.toLowerCase()
+            let queryName = req.query.name
+            let query= {}
+            if (req.query.itineraryId) {
+                query = {
+                    itineraryId: req.query.itineraryId,
+                };
+            }
+            if (req.query.showId) {
+                query = {
+                    showId: req.query.showId,
+                };
+                console.log(query);
+            }
+            query= {...query,
+                name: { $regex :queryName, $options:'i'}}
 
-            let query = {name: queryName, itineraryId: req.query.itineraryId}
+
+
 
             let postReaction = await Reaction.findOne(query)
             if (postReaction) {
                 if(postReaction.userId.includes(req.user.id)){
 
-                    console.log(req.user.id)
 
                     const editReaction = await Reaction.findOneAndUpdate(
-                        {name: queryName, itineraryId: req.query.itineraryId},{$pull:{userId:req.user.id}},{new:true})
+                        query,{$pull:{userId:req.user.id}},{new:true})
                         res.status(200).json({
                         reaction:editReaction,
                         success: true,
@@ -38,7 +52,7 @@ const controller = {
                 })
                 }else{
                     const editReaction = await Reaction.findOneAndUpdate(
-                         {name: queryName, itineraryId: req.query.itineraryId},{$push:{userId:req.user.id}},{new:true})
+                         query,{$push:{userId:req.user.id}},{new:true})
                          res.status(200).json({
                          reaction:editReaction,
                          success: true,
@@ -68,6 +82,12 @@ const controller = {
                 itineraryId: req.query.itineraryId
              }   
         }
+        if (req.query.showId) {
+            query = {
+                ...query,
+                showId: req.query.showId
+             }
+        }
         if (req.query.userId) {
             query = {
                 ...query,
@@ -77,7 +97,7 @@ const controller = {
         }
         try{
             let readReactions = await Reaction.find(query)
-/*                 .populate({ path: 'userId', select: 'name lastName photo' })  */            
+                 .populate({ path: 'showId', select: 'name lastName photo' })              
                 .populate({ path: 'itineraryId', select: 'name photo _id' })
             if (readReactions){
                 console.log(readReactions)
