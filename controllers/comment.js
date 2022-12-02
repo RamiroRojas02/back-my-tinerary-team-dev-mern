@@ -40,9 +40,11 @@ const controller = {
         }
     },
     edit: async(req,res)=>{
-        let {_id, data} = req.body
+        let {id}= req.params
+        
         try {
-            let newComment = await Comment.findOneAndUpdate({_id:_id},data,{new:true})
+            let newComment = await Comment.findOneAndUpdate({_id:id},req.body,{new:true})
+            console.log(newComment);
             res.status(200).json({
                 newComment,
                 success:true,
@@ -56,9 +58,9 @@ const controller = {
         }
     },
     destroy:async(req,res)=>{
-        let {_id} = req.body
+        let {id} = req.params
         try {
-            let destroyComment = await Comment.findOneAndRemove({_id:_id})
+            let destroyComment = await Comment.findOneAndRemove({_id:id})
             res.status(200).json({
                 destroyComment,
                 success:true,

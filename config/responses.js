@@ -47,7 +47,6 @@ function verifyResponse(req,res) {
     })
 }
 function invalidUser(req,res) {
-    console.log("buenas");
     return res.status(400).json({
         success:false,
         message:'This comment is not yours'
