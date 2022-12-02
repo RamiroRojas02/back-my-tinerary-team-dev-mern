@@ -4,7 +4,7 @@ const Comment = require('../models/Comment')
 const controller = {
     create: async(req,res)=>{
         try {
-            let newComment = Comment.create(req.body)
+            let newComment = (await Comment.create(req.body)).populate('userId',['name','photo'])
             res.status(200).json({
                 id: (await newComment),
                 success: true,
@@ -31,6 +31,38 @@ const controller = {
                 comments,
                 success:true,
                 messagge: 'comments finded'
+            })
+        } catch (error) {
+            res.status(404).json({
+                success:false,
+                messagge: error.message
+            })
+        }
+    },
+    edit: async(req,res)=>{
+        let {_id, data} = req.body
+        try {
+            let newComment = await Comment.findOneAndUpdate({_id:_id},data,{new:true})
+            res.status(200).json({
+                newComment,
+                success:true,
+                messagge: 'comment edited'
+            })
+        } catch (error) {
+            res.status(404).json({
+                success:false,
+                messagge: error.message
+            })
+        }
+    },
+    destroy:async(req,res)=>{
+        let {_id} = req.body
+        try {
+            let destroyComment = await Comment.findOneAndRemove({_id:_id})
+            res.status(200).json({
+                destroyComment,
+                success:true,
+                messagge: 'comment destroyed'
             })
         } catch (error) {
             res.status(404).json({
