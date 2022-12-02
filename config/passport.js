@@ -13,7 +13,6 @@ passport.use(
             secretOrKey: KEY_JWT
         },
         async (jwt_payload,done) =>{
-            console.log("hola");
             try {
                 let user = await User.findOne({_id: jwt_payload.id})
                 if (user) {
@@ -26,6 +25,7 @@ passport.use(
                         id: user._id,
                         logged: user.logged
                     }
+                    
                     return done(null, user)
                 }else{
                     return done(null,false)
