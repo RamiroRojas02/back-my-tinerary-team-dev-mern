@@ -2,6 +2,7 @@ const joi = require("joi");
 
 const schema = joi.object({
     itineraryId :joi.any(),
+    showId: joi.any(),
     name: joi.string().required().min(4).max(50).messages({
         'string.empty': 'Please put a name',
         'string.min': 'Name is too short',
