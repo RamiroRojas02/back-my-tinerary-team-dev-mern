@@ -61,6 +61,7 @@ const controller = {
                     {expiresIn : 60*60*24}
                     )
                 user = {
+                    id: user._id,
                     name: user.name,
                     email: user.email,
                     age: user.age,
