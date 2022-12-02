@@ -77,7 +77,7 @@ const controller = {
         }
         try{
             let readReactions = await Reaction.find(query)
-                .populate({ path: 'userId', select: 'name lastName photo' })             
+/*                 .populate({ path: 'userId', select: 'name lastName photo' })  */            
                 .populate({ path: 'itineraryId', select: 'name photo _id' })
             if (readReactions){
                 console.log(readReactions)
