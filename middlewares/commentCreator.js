@@ -1,14 +1,16 @@
 const { invalidUser } = require("../config/responses")
+const Comment = require('../models/Comment')
 
 
-function commentCreator (req,res,next){
 
-    if (req.user.id == req.body.userId) {
-        
+async function commentCreator  (req,res,next){
+    let params = req.params
+    let comment = await Comment.find({_id:  params.id,userId:req.user.id })
+    
+    if (comment) {
         return next()
     }
-
-    console.log("pasaa");
+    // console.log("no paso");
     return invalidUser(req,res)
 }
 
